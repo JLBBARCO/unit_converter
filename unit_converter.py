@@ -6,7 +6,8 @@ while True:
     opções = [
         'Sair',
         'Temperatura',
-        'Altura'
+        'Altura',
+        'Velocidade'
     ]
     ui.menu(opções=opções, título='Conversor')
     resposta = int(input('Opção: '))
@@ -20,6 +21,9 @@ while True:
 
     elif resposta == 2:
         from lib import height
+
+    elif resposta == 3:
+        from lib import speed
 
     else:
         print('\033[31mERRO! Selecione uma opção VÁLIDA!\033[m')
