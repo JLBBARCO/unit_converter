@@ -9,14 +9,14 @@ opçõesTemperatura = [
         ]
 while True:
     ui.menu(opções=opçõesTemperatura, título='Temperatura')
-    resposta1 = int(input('De qual medida quer converter? '))
+    resposta1 = int(input('De qual temperatura quer converter? '))
 
     if resposta1 == 0:
         print('Saindo do conversor...')
         break
     
     else:
-        resposta2 = int(input('Para qual medida quer converter? '))
+        resposta2 = int(input('Para qual temperatura quer converter? '))
 
         if resposta1 == 1:
             if resposta2 == 0:
