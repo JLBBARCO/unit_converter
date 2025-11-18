@@ -1,92 +1,101 @@
-# Importações
-from lib import ui
+import customtkinter as ctk
 
-opçõesTemperatura = [
-            'Voltar',
-            'Celsius',
-            'Fahrenheit',
-            'Kelvin'
-        ]
-while True:
-    ui.menu(opções=opçõesTemperatura, título='Temperatura')
-    resposta1 = int(input('De qual temperatura quer converter? '))
+padXMain = 20
+padYMain = 10
 
-    if resposta1 == 0:
-        print('Voltando...')
-        break
-    
-    else:
-        resposta2 = int(input('Para qual temperatura quer converter? '))
+class App(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title('Temperature')
 
-        if resposta1 == 1:
-            if resposta2 == 0:
-                break
+        self.main_frame = ctk.CTkFrame(self, width=250, height=250)
+        self.main_frame.grid(row=0, column=0, padx=25, pady=25)
 
-            elif resposta2 == 1:
-                print('\033[31mAs unidades de origem e destino são iguais. Nenhuma conversão necessária.\033[m')
-                
-            elif resposta2 == 2:
-                conversão = float(input('Digite a temperatura em Celsius: '))
-                resultado = (conversão * 9/5) + 32
-                print(f"A temperatura em Fahrenheit é: {resultado:.2f} °F")
+        self.mainText = ctk.CTkLabel(self.main_frame, text='Temperature Converter')
+        self.mainText.grid(row=0, column=0, columnspan=3, padx=padXMain, pady=padYMain)
 
-            elif resposta2 == 3:
-                conversão = float(input('Digite a temperatura em Celsius: '))
-                resultado = conversão + 273.15
-                if resultado < 0:
-                    print('\033[31mERRO!\033[m A operação não pode ser concluída pois o resultado é abaixo de zero, e Kelvin possui zero ABSOLUTO.')
-                else:
-                    print(f"A temperatura em Kelvin é: {resultado:.2f} K")
-                
-            else:
-                print('\033[31mERRO! Digite uma opção válida.\033[m')
-            continue
+        self.to_var = ctk.StringVar(value='Celsius')
+        self.for_var = ctk.StringVar(value='Celsius')
 
-        elif resposta1 == 2:
-            if resposta2 == 0:
-                break
+        # 'To' radio buttons
+        self.toCelsius = ctk.CTkRadioButton(self.main_frame, variable=self.to_var, value='Celsius', text='Celsius')
+        self.toCelsius.grid(row=2, column=0, padx=padXMain, pady=padYMain)
 
-            elif resposta2 == 1:
-                conversão = float(input('Digite a temperatura em Fahrenheit: '))
-                resultado = (conversão - 32) * 5/9
-                print(f"A temperatura em Celsius é: {resultado:.2f} °C")
-                
-            elif resposta2 == 2:
-                print('\033[31mAs unidades de origem e destino são iguais. Nenhuma conversão necessária.\033[m')
-                
-            elif resposta2 == 3:
-                conversão = float(input('Digite a temperatura em Fahrenheit: '))
-                resultado = (conversão - 32) * 5/9 + 273.15
-                if resultado < 0:
-                    print('\033[31mERRO!\033[m A operação não pode ser concluída pois o resultado é abaixo de zero, e Kelvin possui zero ABSOLUTO.')
-                else:
-                    print(f"A temperatura em Kelvin é: {resultado:.2f} K")
-                
-            else:
-                print('\033[31mERRO! Digite uma opção válida.\033[m')
-            continue
+        self.toFahrenheit = ctk.CTkRadioButton(self.main_frame, variable=self.to_var, value='Fahrenheit', text='Fahrenheit')
+        self.toFahrenheit.grid(row=3, column=0, padx=padXMain, pady=padYMain)
 
-        elif resposta1 == 3:
-            if resposta2 == 0:
-                break
+        self.toKelvin = ctk.CTkRadioButton(self.main_frame, variable=self.to_var, value='Kelvin', text='Kelvin')
+        self.toKelvin.grid(row=4, column=0, padx=padXMain, pady=padYMain)
 
-            elif resposta2 == 1:
-                conversão = float(input('Digite a temperatura em Kelvin: '))
-                resultado = conversão - 273.15
-                print(f"A temperatura em Celsius é: {resultado:.2f} °C")
+        self.forText = ctk.CTkLabel(self.main_frame, text='For')
+        self.forText.grid(row=2, column=1, rowspan=3, padx=padXMain, pady=padYMain)
 
-            elif resposta2 == 2:
-                conversão = float(input('Digite a temperatura em Kelvin: '))
-                resultado = (conversão - 273.15) * 9/5 + 32
-                print(f"A temperatura em Fahrenheit é: {resultado:.2f} °F")
+        # 'For' radio buttons
+        self.forCelsius = ctk.CTkRadioButton(self.main_frame, variable=self.for_var, value='Celsius', text='Celsius')
+        self.forCelsius.grid(row=2, column=2, padx=padXMain, pady=padYMain)
 
-            elif resposta2 == 3:
-                print('\033[31mAs unidades de origem e destino são iguais. Nenhuma conversão necessária.\033[m')
+        self.forFahrenheit = ctk.CTkRadioButton(self.main_frame, variable=self.for_var, value='Fahrenheit', text='Fahrenheit')
+        self.forFahrenheit.grid(row=3, column=2, padx=padXMain, pady=padYMain)
 
-            else:
-                print('\033[31mERRO! Digite uma opção válida.\033[m')
-            continue
+        self.forKelvin = ctk.CTkRadioButton(self.main_frame, variable=self.for_var, value='Kelvin', text='Kelvin')
+        self.forKelvin.grid(row=4, column=2, padx=padXMain, pady=padYMain)
 
+        self.submit = ctk.CTkButton(self.main_frame, text='Submit', command=self.submit)
+        self.submit.grid(row=5, column=1, padx=padXMain, pady=padYMain)
+
+        self.closeTemperature = ctk.CTkButton(self.main_frame, text='Close', command=self.close)
+        self.closeTemperature.grid(row=6, column=1, padx=padXMain, pady=padYMain)
+
+        self.printArea = ctk.CTkFrame(self, width=250, height=250)
+        self.printArea.grid(row=1, column=0, padx=25, pady=25)
+
+    def submit(self):
+        self.printArea.destroy()
+        self.printArea = ctk.CTkFrame(self, width=250, height=250)
+        self.printArea.grid(row=1, column=0, padx=25, pady=25)
+        to = self.to_var.get()
+        fr = self.for_var.get()
+        if to == fr:
+            self.printError = ctk.CTkLabel(self.printArea, text='ERROR! The options cannot be the same')
+            self.printError.grid(row=0, column=0, padx=padXMain, pady=padYMain)
+            return
+
+        temperature_dialog = ctk.CTkInputDialog(text='Type the temperature', title='Input Temperature')
+        try:
+            input_value = temperature_dialog.get_input()
+            conversion = float(input_value)
+        except Exception:
+            self.printError = ctk.CTkLabel(self.printArea, text='ERROR! Invalid input.')
+            self.printError.grid(row=0, column=0, padx=padXMain, pady=padYMain)
+            return
+
+        result_text = ""
+        if to == 'Celsius' and fr == 'Fahrenheit':
+            result = (conversion * 9 / 5) + 32
+            result_text = f'{conversion}°C results in {result}°F'
+        elif to == 'Celsius' and fr == 'Kelvin':
+            result = conversion + 273.15
+            result_text = f'{conversion}°C results in {result}K'
+        elif to == 'Fahrenheit' and fr == 'Celsius':
+            result = (conversion - 32) * 5 / 9
+            result_text = f'{conversion}°F results in {result}°C'
+        elif to == 'Fahrenheit' and fr == 'Kelvin':
+            result = (conversion - 32) * 5 / 9 + 273.15
+            result_text = f'{conversion}°F results in {result}K'
+        elif to == 'Kelvin' and fr == 'Celsius':
+            result = conversion - 273.15
+            result_text = f'{conversion}K results in {result}°C'
+        elif to == 'Kelvin' and fr == 'Fahrenheit':
+            result = (conversion - 273.15) * 9 / 5 + 32
+            result_text = f'{conversion}K results in {result}°F'
         else:
-            print('\033[31mERRO! Digite uma opção válida.\033[m')
-            continue
+            result_text = "ERROR! Conversion not supported."
+
+        self.temperatureCard = ctk.CTkLabel(self.printArea, text=result_text)
+        self.temperatureCard.grid(row=0, column=0, padx=padXMain, pady=padYMain)
+
+    def close(self):
+        self.quit()
+
+app = App()
+app.mainloop()

@@ -1,29 +1,39 @@
-# Importações
-from lib import ui
+import customtkinter as ctk
 
-# Função principal
-while True:
-    opções = [
-        'Sair',
-        'Temperatura',
-        'Altura',
-        'Velocidade'
-    ]
-    ui.menu(opções=opções, título='Conversor')
-    resposta = int(input('Opção: '))
+class App(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title('Unit Converter')
 
-    if resposta == 0:
-        print('Saindo... Volte Sempre!')
-        break
-    
-    elif resposta == 1:
+        self.main_frame = ctk.CTkFrame(self, width=250, height=250)
+        self.main_frame.grid(row=0, column=0, padx=25, pady=25)
+
+        self.text = ctk.CTkLabel(self.main_frame, text='Converts This Unities')
+        self.text.grid(row=0, column=0, padx=100, pady=10)
+
+        self.temperature = ctk.CTkButton(self.main_frame, text='Temperature', command=self.temperatureButton)
+        self.temperature.grid(row=1, column=0, padx=100, pady=10)
+
+        self.height = ctk.CTkButton(self.main_frame, text='Height', command=self.heightButton)
+        self.height.grid(row=2, column=0, padx=100, pady=10)
+
+        self.speed = ctk.CTkButton(self.main_frame, text='Speed', command=self.speedButton)
+        self.speed.grid(row=3, column=0, padx=100, pady=10)
+
+        self.close = ctk.CTkButton(self.main_frame, text='Close', command=self.closeButton)
+        self.close.grid(row=4, column=0, padx=100, pady=10)
+
+    def temperatureButton(self):
         from lib import temperature
 
-    elif resposta == 2:
+    def heightButton(self):
         from lib import height
 
-    elif resposta == 3:
+    def speedButton(self):
         from lib import speed
 
-    else:
-        print('\033[31mERRO! Selecione uma opção VÁLIDA!\033[m')
+    def closeButton(self):
+        self.quit()
+
+app = App()
+app.mainloop()
