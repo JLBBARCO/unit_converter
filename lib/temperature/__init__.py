@@ -40,18 +40,14 @@ class App(ctk.CTk):
         self.forKelvin = ctk.CTkRadioButton(self.main_frame, variable=self.for_var, value='Kelvin', text='Kelvin')
         self.forKelvin.grid(row=4, column=2, padx=padXMain, pady=padYMain)
 
-        self.submit = ctk.CTkButton(self.main_frame, text='Submit', command=self.submit)
-        self.submit.grid(row=5, column=1, padx=padXMain, pady=padYMain)
+        self.submitButton = ctk.CTkButton(self.main_frame, text='Submit', command=self.submit)
+        self.submitButton.grid(row=5, column=1, padx=padXMain, pady=padYMain)
 
-        self.closeTemperature = ctk.CTkButton(self.main_frame, text='Close', command=self.close)
-        self.closeTemperature.grid(row=6, column=1, padx=padXMain, pady=padYMain)
-
-        self.printArea = ctk.CTkFrame(self, width=250, height=250)
-        self.printArea.grid(row=1, column=0, padx=25, pady=25)
+        self.printArea = ctk.CTkFrame(self)
 
     def submit(self):
         self.printArea.destroy()
-        self.printArea = ctk.CTkFrame(self, width=250, height=250)
+        self.printArea = ctk.CTkFrame(self)
         self.printArea.grid(row=1, column=0, padx=25, pady=25)
         to = self.to_var.get()
         fr = self.for_var.get()
@@ -93,9 +89,6 @@ class App(ctk.CTk):
 
         self.temperatureCard = ctk.CTkLabel(self.printArea, text=result_text)
         self.temperatureCard.grid(row=0, column=0, padx=padXMain, pady=padYMain)
-
-    def close(self):
-        self.quit()
 
 app = App()
 app.mainloop()

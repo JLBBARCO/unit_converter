@@ -20,9 +20,6 @@ class App(ctk.CTk):
         self.speed = ctk.CTkButton(self.main_frame, text='Speed', command=self.speedButton)
         self.speed.grid(row=3, column=0, padx=100, pady=10)
 
-        self.close = ctk.CTkButton(self.main_frame, text='Close', command=self.closeButton)
-        self.close.grid(row=4, column=0, padx=100, pady=10)
-
     def temperatureButton(self):
         from lib import temperature
 
@@ -31,9 +28,6 @@ class App(ctk.CTk):
 
     def speedButton(self):
         from lib import speed
-
-    def closeButton(self):
-        self.quit()
 
 app = App()
 app.mainloop()
