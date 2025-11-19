@@ -49,6 +49,7 @@ class App(ctk.CTk):
         self.printArea.destroy()
         self.printArea = ctk.CTkFrame(self)
         self.printArea.grid(row=1, column=0, padx=25, pady=25)
+        
         to = self.to_var.get()
         fr = self.for_var.get()
         if to == fr:
